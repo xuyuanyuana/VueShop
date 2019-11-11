@@ -3,37 +3,41 @@ import Search from '../pages/search/Search.vue'
 import Order from '../pages/order/Order.vue'
 import Mine from '../pages/mine/Mine.vue'
 import Login from '../pages/login/Login.vue'
-import MsLogin from '../pages/msg-login/MsgLogin.vue'
-import PwdLogin from '../pages/pwd-login/PwdLogin.vue'
 export default [
   {
     path: '/msite',
-    component: Msite
+    component: Msite,
+    meta:{
+      hasFooter:true
+    }
   },
   {
     path: '/search',
-    component: Search
+    component: Search,
+    meta:{
+      hasFooter:true
+    }
   },
   {
     path: '/order',
-    component: Order
+    component: Order,
+    meta:{
+      hasFooter:true
+    }
   },
   {
     path: '/mine',
-    component: Mine
+    component: Mine,
+    meta:{
+      hasFooter:true
+    }
   },
   {
     path: '/login',
     component: Login,
-    children: [
-      {
-        path: '/login/MsgLogin',
-        component: MsLogin
-      },
-      {
-        path: '/login/PwdLogin',
-        component: PwdLogin
-      }
-    ]
+  },
+  {
+    path: '/',
+    redirect: '/msite'
   }
 ]

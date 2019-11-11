@@ -31,5 +31,17 @@ module.exports = {
         ]
       }
     }
-},
+  },
+  // 配置代理服务器
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:4000',
+        changeOrigin: true,
+        pathRewrite: { //路径重写
+          '^/api': '', // rewrite path
+        }
+      }
+    }
+  }
 }

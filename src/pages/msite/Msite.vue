@@ -53,8 +53,8 @@ import ShopList from '../../components/shopList/ShopList'
     },
     computed: {
       ...mapState({
-        address: state => state.address,
-        categories: state => state.categories
+        address: state => state.msite.address,
+        categories: state => state.msite.categories
       }),
       NewCategories(){
         return chunk(this.categories,8)
@@ -114,7 +114,7 @@ import ShopList from '../../components/shopList/ShopList'
                 text-align center
                 font-size 13px
                 color #666
-        .swiper-pagination
+        /deep/.swiper-pagination
           >span.swiper-pagination-bullet-active
             background #02a774
     

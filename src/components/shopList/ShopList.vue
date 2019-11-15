@@ -7,7 +7,12 @@
           </div>
           <div class="shop_container">
             <ul class="shop_list">
-              <li class="shop_li border-1px" v-for="(shopItem,index) in shopList" :key="index">
+              <li 
+                class="shop_li border-1px" 
+                v-for="(shopItem,index) in shopList" 
+                :key="index"
+                @click="$router.push('/shop')"
+              >
                 <a>
                   <div class="shop_left">
                     <img class="shop_img" :src="`https://fuss10.elemecdn.com${shopItem.image_path}`">
@@ -62,7 +67,7 @@ import Stars from '../stars/Stars'
     },
     computed: {
       ...mapState({
-        shopList: (state) => state.shopList
+        shopList: (state) => state.msite.shopList
       })
     }
   }

@@ -1,19 +1,19 @@
 <template>
-        <section class="profile">
+      <section class="profile">
         <Gheader title="我的"/>
         <section class="profile-number">
-          <a href="javascript:" class="profile-link">
+          <a href="javascript:" class="profile-link" @click="toLogin">
             <router-link to="/login">
             <div class="profile_image">
               <i class="iconfont icon-person_round_fill"></i>
             </div>
             <div class="user-info">
-              <p class="user-info-top">登录/注册</p>
-              <p>
+              <p class="user-info-top" v-if="!user.phone">{{user.name?user.name:'登录/注册'}}</p>
+              <p v-if="!user.user">
                 <span class="user-icon">
                   <i class="iconfont icon-shouji icon-mobile"></i>
                 </span>
-                <span class="icon-mobile-number">暂无绑定手机号</span>
+                <span class="icon-mobile-number">{{user.phone?user.phone:'暂无绑定手机号'}}</span>
               </p>
             </div>
             <span class="arrow">
@@ -90,14 +90,41 @@
             </div>
           </a>
         </section>
+        <mt-button type="danger" style="width:100%" @click="logout">退出登录</mt-button>
       </section>
 </template>
 
 <script type="text/ecmascript-6">
 import Gheader from '../../components/gheader/Gheader'
+import { MessageBox } from 'mint-ui'
+import {mapState} from 'vuex'
+import { LOGOUT } from '../../store/mutations-type'
   export default {
     components: {
       Gheader
+    },
+    computed:{
+      ...mapState({
+        user: state => state.msite.user
+      })
+    },
+    mounted(){
+      this.$store.dispatch('getAutoLogin')
+    },
+    methods: {
+      toLogin(){
+        if(this.user._id) return
+        this.$router.replace('/login')
+      },
+      logout(){
+        // 退出登录---基于promise
+        MessageBox.confirm('确定登录吗？').then(
+          value => {
+            this.$store.commit(LOGOUT)
+            this.$router.replace('/login')
+          }
+        )
+      }
     }
   }
 </script>

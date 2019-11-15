@@ -20,7 +20,7 @@
             <li class="food-item bottom-border-1px" v-for="food in good.foods">
               <div class="icon">
                 <img width="57" height="57"
-                    src="food.image">
+                    :src="food.image">
               </div>
               <div class="content">
                 <h2 class="name">{{food.name}}</h2>
@@ -40,13 +40,18 @@
         </li>
       </ul>
     </div>
+    <ShopCart/>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 import BScroll from 'better-scroll'
 import { mapState } from 'vuex'
+import ShopCart from '../../../components/shopCart/ShopCart'
   export default {
+    components: {
+      ShopCart
+    },
     data(){
       return {
         rightHeigth:[],
@@ -85,7 +90,7 @@ import { mapState } from 'vuex'
         this.rightScroll = new BScroll(right,{
           scrollY: true,
           probeType: 2, //实时，但是没有惯性滑动
-          click:true
+         //click:true
         })
         this.rightScroll.on('scroll',({x,y}) => {
           this.scrollY = Math.abs(y)
@@ -128,7 +133,7 @@ import { mapState } from 'vuex'
     display flex
     overflow hidden
     position absolute
-    bottom  0 
+    bottom  48px 
     top 223px
     .leftWrap
       width 80px

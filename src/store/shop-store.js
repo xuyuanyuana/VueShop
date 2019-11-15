@@ -7,7 +7,8 @@ import {
 import Vue from 'vue'
 
 const state = {
-  shopData:{}
+  shopData:{},
+  carShop:[]
 }
 const mutations = {
   [SAVE_SHOPDATA](state,shopData){
@@ -19,11 +20,16 @@ const mutations = {
     }else{ //如果不存在则 ：1.undefined 2.可能为0
       // 实现数据的动态代理
       Vue.set(food,'count', 1)
+      state.carShop.push(food)
     }
   },
   [SAVE_DELFOOD](state,{food}){
     if(food.count){
-      food.count >=0 && food.count--
+      food.count--
+      // 如果为0后，删除商品从carShop中
+      if(!food.count){
+        state.carShop.splice(state.carShop.indexOf(food),1)
+      }
     }
   }
 }
@@ -35,7 +41,20 @@ const actions = {
     }
   }
 }
-const getters ={}
+const getters ={
+  // 计算购物车中商品的数量
+  cartCount(state){
+    return state.carShop.reduce((pre,food) => 
+          pre += food.count
+      ,0)
+  },
+  // 购物车中商品的总价
+  cartPrice(){
+    return state.carShop.reduce((pre,food) => 
+          pre += food.count*food.price
+    ,0)
+  }
+}
 
 
 export default {

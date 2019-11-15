@@ -3,13 +3,26 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_1500360_5nlodap462f.css">
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_518606_snabom9h9y1wz5mi.css">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_509996_vl34s4nytbd.css">
     <link rel="stylesheet" href="<%= BASE_URL %>reset.css">
     <title>vue3</title>
+    <script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.js"></script>
+    <script type="text/javascript">
+        if ('addEventListener' in document) {
+          //当html完全被加载解析时触发 第三个参数：表示是否使用事件冒泡
+          /* 
+            原理：当html被完全加载解析时给body绑定事件
+          */
+          document.addEventListener('DOMContentLoaded', function() {
+            console.log('fastClick')
+            FastClick.attach(document.body);
+          }, false);
+        }
+    </script>
   </head>
   <body>
     <div id="app"></div>

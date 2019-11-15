@@ -18,12 +18,32 @@
 
 <script type="text/ecmascript-6">
 import ShopHeader from '../../components/shopHeader/ShopHeader.vue'
+import { SAVE_SHOPDATA } from '../../store/mutations-type'
+import { mapState} from 'vuex'
   export default {
     components:{
       ShopHeader,
     },
     mounted(){
-      this.$store.dispatch('getShopData')
+      // 分发之前应该先看是否存在值，如果存在则使用内存中的
+      if(sessionStorage.getItem('SHOP_DATA')){
+        // 取出并保存到vuex中
+        let shopData = JSON.parse(sessionStorage.getItem('SHOP_DATA'))
+        // 保存到vuex中
+        this.$store.commit(SAVE_SHOPDATA,shopData)
+      }else{
+        this.$store.dispatch('getShopData')
+      }   
+    },
+    computed: {
+      ...mapState({
+        shopData: state => state.shop.shopData
+      })
+    },
+    beforeDestroy(){
+      // 组件销毁之前把购物车的信息存储到sesshopDatasionStorge
+      console.log('销毁之前')
+      sessionStorage.setItem('SHOP_DATA',JSON.stringify(this.shopData))
     }
   }
 </script>
